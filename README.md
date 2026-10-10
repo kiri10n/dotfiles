@@ -18,8 +18,8 @@
 ## インストール方法
 
 ```sh
-git clone <repository-url> ~/.dotfiles
-cd ~/.dotfiles
+git clone <repository-url> <repository-path>
+cd <repository-path>
 chmod +x install.sh
 ./install.sh
 ```
