@@ -1,0 +1,59 @@
+#!/bin/zsh
+# git c <msg> | git c --en|--ja [--dry-run] | git c <git commit options>
+
+source "${0:A:h}/../../zsh/functions/ai-cli.zsh"
+
+lang="" dry_run=false message=""
+git_args=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --en)      lang="en" ;;
+    --ja)      lang="ja" ;;
+    --dry-run) dry_run=true ;;
+    -*)        git_args+=("$1") ;;
+    *)
+      if [[ -z "$message" ]]; then
+        message="$1"
+      else
+        git_args+=("$1")
+      fi
+      ;;
+  esac
+  shift
+done
+
+if [[ -n "$message" ]]; then
+  exec git commit -m "$message" "${git_args[@]}"
+fi
+
+if [[ -z "$lang" ]]; then
+  exec git commit "${git_args[@]}"
+fi
+
+ai_cli_require >/dev/null || exit 1
+
+if [[ "$lang" == "ja" ]]; then
+  prompt="このgit diffの内容から、日本語で簡潔なコミットメッセージを1行で生成してください。メッセージ文字列のみを出力してください。"
+else
+  prompt="Generate a concise one-line commit message in English from the content of this git diff. Output only the message string."
+fi
+
+staged=$(git diff --cached --name-only 2>/dev/null)
+
+if $dry_run; then
+  if [[ -z "$staged" ]]; then
+    echo "No staged changes." >&2
+    exit 1
+  fi
+  ai_cli_run "${prompt}"$'\n\n'"$(git diff --cached)" --model haiku
+  exit
+fi
+
+if [[ -n "$staged" ]]; then
+  msg=$(ai_cli_run "${prompt}"$'\n\n'"$(git diff --cached)" --model haiku) || exit 1
+  git commit -m "$msg" "${git_args[@]}"
+else
+  msg=$(ai_cli_run "${prompt}"$'\n\n'"$(git show HEAD)" --model haiku) || exit 1
+  git commit --amend -m "$msg" "${git_args[@]}"
+fi

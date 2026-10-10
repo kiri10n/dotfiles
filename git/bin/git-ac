@@ -1,0 +1,4 @@
+#!/bin/zsh
+# git ac <args> : add -> commit (<args> は git c にそのまま渡す)
+
+git a && git c "$@"

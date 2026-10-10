@@ -1,0 +1,16 @@
+#!/bin/zsh
+# git ps          : git push origin <現在のブランチ名>
+# git ps --fwl    : git push --force-with-lease origin <現在のブランチ名>
+# git ps <args>   : git push <args>
+
+cd "${GIT_PREFIX:-.}" || exit 1
+
+if [[ $# -eq 1 && "$1" == "--fwl" ]]; then
+  branch=$(git symbolic-ref --short HEAD) || { echo "detached HEAD のため push できません" >&2; exit 1; }
+  exec git push --force-with-lease origin "$branch"
+elif [[ $# -eq 0 ]]; then
+  branch=$(git symbolic-ref --short HEAD) || { echo "detached HEAD のため push できません" >&2; exit 1; }
+  exec git push origin "$branch"
+else
+  exec git push "$@"
+fi
