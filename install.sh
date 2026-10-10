@@ -23,6 +23,8 @@ if [ -f ~/.bash_profile ]; then
   if ! grep -Fq "$DOTFILES_DIR/bash/.bash_profile" ~/.bash_profile; then
     echo -e "\n# Load dotfiles config\n$BASH_LOAD_CMD" >> ~/.bash_profile
     echo "Added dotfiles source to ~/.bash_profile"
+  else
+    echo "~/.bash_profile is already configured."
   fi
 else
   # .bash_profile が存在しない場合は何もしない
