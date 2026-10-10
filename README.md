@@ -9,7 +9,11 @@
 ├── install.sh
 ├── uninstall.sh
 ├── git/
-│   └── .gitconfig
+│   ├── .gitconfig
+│   └── bin/
+├── bash/
+│   ├── .bash_profile
+│   └── functions/
 └── zsh/
     ├── .zshrc
     └── functions/
@@ -23,6 +27,8 @@ cd <repository-path>
 chmod +x install.sh
 ./install.sh
 ```
+
+`bash/.bash_profile` は Bash のログインシェル向け設定です。`bash/functions/` の関数もこの設定から読み込みます。`install.sh` は既存の `~/.bash_profile` がある場合に dotfiles の設定を追加します。
 
 ## アンインストール方法
 

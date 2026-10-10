@@ -4,9 +4,9 @@
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # 1. .zshrc への追記処理
-ZSHRC_LOAD_CMD="[ -f \"$DOTFILES_DIR/.zshrc\" ] && source \"$DOTFILES_DIR/.zshrc\""
+ZSHRC_LOAD_CMD="[ -f \"$DOTFILES_DIR/zsh/.zshrc\" ] && source \"$DOTFILES_DIR/zsh/.zshrc\""
 if [ -f ~/.zshrc ]; then
-  if ! grep -Fq "$DOTFILES_DIR/.zshrc" ~/.zshrc; then
+  if ! grep -Fq "$DOTFILES_DIR/zsh/.zshrc" ~/.zshrc; then
     echo -e "\n# Load dotfiles config\n$ZSHRC_LOAD_CMD" >> ~/.zshrc
     echo "Added dotfiles source to ~/.zshrc"
   else
@@ -18,9 +18,9 @@ else
 fi
 
 # 2. .bash_profile への追記処理
-BASH_LOAD_CMD="[ -f \"$DOTFILES_DIR/.bash_profile\" ] && source \"$DOTFILES_DIR/.bash_profile\""
+BASH_LOAD_CMD="[ -f \"$DOTFILES_DIR/bash/.bash_profile\" ] && source \"$DOTFILES_DIR/bash/.bash_profile\""
 if [ -f ~/.bash_profile ]; then
-  if ! grep -Fq "$DOTFILES_DIR/.bash_profile" ~/.bash_profile; then
+  if ! grep -Fq "$DOTFILES_DIR/bash/.bash_profile" ~/.bash_profile; then
     echo -e "\n# Load dotfiles config\n$BASH_LOAD_CMD" >> ~/.bash_profile
     echo "Added dotfiles source to ~/.bash_profile"
   fi
@@ -31,8 +31,8 @@ fi
 
 # 3. .gitconfig への include 追加
 # git config コマンドを使うことで既存設定を壊さず安全に追加できます
-if ! git config --global --get-all include.path | grep -q "$DOTFILES_DIR/.gitconfig"; then
-  git config --global --add include.path "$DOTFILES_DIR/.gitconfig"
+if ! git config --global --get-all include.path | grep -q "$DOTFILES_DIR/git/.gitconfig"; then
+  git config --global --add include.path "$DOTFILES_DIR/git/.gitconfig"
   echo "Added include path to ~/.gitconfig"
 else
   echo "~/.gitconfig is already configured."
