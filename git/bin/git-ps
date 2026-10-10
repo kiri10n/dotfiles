@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 # git ps          : git push origin <現在のブランチ名>
 # git ps --fwl    : git push --force-with-lease origin <現在のブランチ名>
 # git ps <args>   : git push <args>

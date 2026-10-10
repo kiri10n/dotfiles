@@ -1,7 +1,8 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 # git c <msg> | git c --en|--ja [--dry-run] | git c <git commit options>
 
-source "${0:A:h}/../../zsh/functions/ai-cli.zsh"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/../../bash/functions/ai-cli.bash"
 
 lang="" dry_run=false message=""
 git_args=()

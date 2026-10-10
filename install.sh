@@ -31,7 +31,24 @@ else
   echo "~/.bash_profile not found."
 fi
 
-# 3. .gitconfig への include 追加
+# 3. Git コマンドに実行権限を付与
+GIT_BIN_DIR="$DOTFILES_DIR/git/bin"
+if [ -d "$GIT_BIN_DIR" ]; then
+  for git_command in "$GIT_BIN_DIR"/git-*; do
+    [ -f "$git_command" ] || continue
+    if ! chmod +x "$git_command"; then
+      echo "Failed to make executable: $git_command" >&2
+      exit 1
+    fi
+  done
+else
+  echo "Git command directory not found: $GIT_BIN_DIR" >&2
+  exit 1
+fi
+
+echo "Git commands in $GIT_BIN_DIR are now executable."
+
+# 4. .gitconfig への include 追加
 # git config コマンドを使うことで既存設定を壊さず安全に追加できます
 if ! git config --global --get-all include.path | grep -q "$DOTFILES_DIR/git/.gitconfig"; then
   git config --global --add include.path "$DOTFILES_DIR/git/.gitconfig"

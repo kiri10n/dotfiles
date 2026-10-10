@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 # git cps <args> : commit -> push (<args> は git c にそのまま渡す)
 
 git c "$@" && git ps

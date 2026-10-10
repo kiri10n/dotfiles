@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 # git acps <args> : add -> commit -> push (<args> は git c にそのまま渡す)
 
 git a && git c "$@" && git ps
