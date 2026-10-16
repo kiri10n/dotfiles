@@ -17,14 +17,14 @@ else
   echo "No dotfiles setting found in ~/.zshrc"
 fi
 
-# 2. .bash_profile から追記行を削除
-if [ -f ~/.bash_profile ] && grep -Fq "$DOTFILES_DIR/bash/.bash_profile" ~/.bash_profile; then
-  cp ~/.bash_profile ~/.bash_profile.bak
-  grep -vF "$DOTFILES_DIR/bash/.bash_profile" ~/.bash_profile | grep -v "# Load dotfiles config" > ~/.bash_profile.tmp
-  mv ~/.bash_profile.tmp ~/.bash_profile
-  echo "Removed dotfiles setting from ~/.bash_profile (Backup: ~/.bash_profile.bak)"
+# 2. .bashrc から追記行を削除
+if [ -f ~/.bashrc ] && grep -Fq "$DOTFILES_DIR/bash/.bashrc" ~/.bashrc; then
+  cp ~/.bashrc ~/.bashrc.bak
+  grep -vF "$DOTFILES_DIR/bash/.bashrc" ~/.bashrc | grep -v "# Load dotfiles config" > ~/.bashrc.tmp
+  mv ~/.bashrc.tmp ~/.bashrc
+  echo "Removed dotfiles setting from ~/.bashrc (Backup: ~/.bashrc.bak)"
 else
-  echo "No dotfiles setting found in ~/.bash_profile"
+  echo "No dotfiles setting found in ~/.bashrc"
 fi
 
 # 3. .gitconfig から include 設定を削除

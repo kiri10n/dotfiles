@@ -12,7 +12,7 @@
 │   ├── .gitconfig
 │   └── bin/
 ├── bash/
-│   ├── .bash_profile
+│   ├── .bashrc
 │   └── functions/
 └── zsh/
     ├── .zshrc

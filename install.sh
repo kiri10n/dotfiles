@@ -17,18 +17,18 @@ else
   echo "~/.zshrc not found."
 fi
 
-# 2. .bash_profile への追記処理
-BASH_LOAD_CMD="[ -f \"$DOTFILES_DIR/bash/.bash_profile\" ] && source \"$DOTFILES_DIR/bash/.bash_profile\""
-if [ -f ~/.bash_profile ]; then
-  if ! grep -Fq "$DOTFILES_DIR/bash/.bash_profile" ~/.bash_profile; then
-    echo -e "\n# Load dotfiles config\n$BASH_LOAD_CMD" >> ~/.bash_profile
-    echo "Added dotfiles source to ~/.bash_profile"
+# 2. .bashrc への追記処理
+BASH_LOAD_CMD="[ -f \"$DOTFILES_DIR/bash/.bashrc\" ] && source \"$DOTFILES_DIR/bash/.bashrc\""
+if [ -f ~/.bashrc ]; then
+  if ! grep -Fq "$DOTFILES_DIR/bash/.bashrc" ~/.bashrc; then
+    echo -e "\n# Load dotfiles config\n$BASH_LOAD_CMD" >> ~/.bashrc
+    echo "Added dotfiles source to ~/.bashrc"
   else
-    echo "~/.bash_profile is already configured."
+    echo "~/.bashrc is already configured."
   fi
 else
-  # .bash_profile が存在しない場合は何もしない
-  echo "~/.bash_profile not found."
+  # .bashrc が存在しない場合は何もしない
+  echo "~/.bashrc not found."
 fi
 
 # 3. Git コマンドに実行権限を付与
