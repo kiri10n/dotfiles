@@ -8,6 +8,7 @@
   m  = merge
   o  = checkout
   pl = pull
+  r  = restore
   s  = status
   sw = switch
   w  = whatchanged
